@@ -37,6 +37,15 @@ The TA will check the completion of the following tasks:
 Each member of the group should be able to answer all of the following questions. The TA will ask each person one question selected at random, and the student must be able to answer the question to get credit for the lab.
 
 - Q1: Explain the scheduling strategy of Node Affinity and the scenarios to use it.
+
+allows you to constrain which nodes your pod is eligible to be scheduled on, based on labels on the node
+can be hard or soft, required or preferred
+if you have nodes with special hardware or certain labels that make them suitable for running particular workloads
+
 - Q2: Explain the scheduling strategy of Pod Anti-Affinity and the scenarios to use it.
+
+ensuring certain pods don’t run on the same node as other pods.
+If we need to prevent single point of failure, we would like nodes to be on diff pods.
+
 - Q3: Explain the deployment strategy of blue-green deployment. How to switch between the two versions of deployments?
 - Q4: Explain the deployment strategy of canary deployment. How to adjust the ratio of users getting serviced by the canary deployment?
