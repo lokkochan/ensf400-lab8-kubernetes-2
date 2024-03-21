@@ -36,3 +36,30 @@ kubectl get configmap myconfigmap2 -o yaml
 kubectl delete configmap myconfigmap2
 
 //-------------------9----------------
+
+//-------------------10--------------
+cd 10-blue-green-deploy
+kubectl apply -f blue.yml
+kubectl get pods --show-labels
+kubectl apply -f green.yml
+kubectl get pods --show-labels
+kubectl apply -f svc.yml
+kubectl exec -it bluepod -- bash
+echo "Hello from Blue-Pod" >> htdocs/index.html
+exit
+kubectl exec -it greenpod -- bash
+echo "Hello from Green-Pod" >> htdocs/index.html
+exit
+kubectl get pods -o wide
+kubectl run -it --rm --image=curlimages/curl curly -- sh
+curl 10.244.2.2
+curl 10.244.1.2
+exit
+kubectl get svc
+kubectl run -it --rm --image=curlimages/curl curly -- sh
+curl myapp
+exit
+kubectl patch service myapp -p '{"spec":{"selector":{"app": "green"}}}'
+kubectl run -it --rm --image=curlimages/curl curly -- sh
+curl myapp
+exit

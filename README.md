@@ -48,4 +48,14 @@ ensuring certain pods don’t run on the same node as other pods.
 If we need to prevent single point of failure, we would like nodes to be on diff pods.
 
 - Q3: Explain the deployment strategy of blue-green deployment. How to switch between the two versions of deployments?
+
+Allow updating one version named as BLUE while the another version named as GREEN will keep serving the request once done we can switch back to BLUE if required.
+kubectl patch service  SERVICENAME -p '{"spec":{"selector":{"KEY": "VALUE"}}}'
+
 - Q4: Explain the deployment strategy of canary deployment. How to adjust the ratio of users getting serviced by the canary deployment?
+
+It is to allow the new version of the app to run parallel and so some request will be allowed to be passed into the new one so the new version can be tested and observed.
+
+annotations:
+    nginx.ingress.kubernetes.io/canary: "true"
+    nginx.ingress.kubernetes.io/canary-weight: "20"
